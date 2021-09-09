@@ -89,6 +89,16 @@ php artisan span:model Flight admin --controller
 php artisan span:migration create_flights_table admin
 ```
 
+## Why
+
+why i created this over `laranext`, because laranext is little advance and not native for laravel developers.
+
+`Span` is the same concept used by the `laranext` but it's more close to native `laravel`.
+
+we can say it's only separation of code if we needed, it's totally optional.
+
+`laranext` is still under production and not available publicly at the moment.
+
 ## Credits
 
 - [Muhammad Ahsan Abrar](https://github.com/ahsanabrar)
