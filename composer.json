@@ -1,0 +1,48 @@
+{
+    "name": "laranext/span",
+    "description": "Laranext span is based on reusable plug and play system.",
+    "keywords": [
+        "laravel",
+        "admin"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhammad Ahsan Abrar",
+            "email": "iahsanabrar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.20",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laranext\\Span\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Laranext\\Span\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Laranext\\Span\\SpanCoreServiceProvider"
+            ],
+            "aliases": {
+                "Span": "Laranext\\Span\\Span"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
