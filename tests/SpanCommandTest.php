@@ -2,6 +2,7 @@
 
 namespace Laranext\Span\Tests;
 
+use Illuminate\Support\Composer;
 use Illuminate\Support\Facades\File;
 
 class SpanCommandTest extends OrchestraTestCase
@@ -83,15 +84,19 @@ class SpanCommandTest extends OrchestraTestCase
     /** @test */
     public function it_can_generate_migration()
     {
+        $spy = $this->spy(Composer::class);
         File::deleteDirectory(base_path('packages/admin/database/migrations'));
 
         $this->artisan('span:migration create_flights_table admin');
         $this->assertFalse(empty(File::files(base_path('packages/admin/database/migrations'))));
+
+        $spy->shouldHaveReceived()->dumpAutoloads();
     }
 
     /** @test */
     public function it_can_generate_model()
     {
+        $spy = $this->spy(Composer::class);
         File::deleteDirectory(base_path('packages/admin'));
 
         $this->artisan('span:model Flight admin --api -m')
@@ -101,6 +106,8 @@ class SpanCommandTest extends OrchestraTestCase
             );
 
         $this->assertTrue(File::exists(base_path('packages/admin/src/Models/Flight.php')));
+
+        $spy->shouldHaveReceived()->dumpAutoloads();
     }
 
     /** @test */

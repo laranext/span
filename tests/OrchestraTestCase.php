@@ -10,7 +10,7 @@ abstract class OrchestraTestCase extends TestCase
 {
     public function tearDown(): void
     {
-        // Mockery::close();
+        Mockery::close();
     }
 
     protected function getPackageProviders($app)
