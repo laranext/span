@@ -82,6 +82,12 @@ class PackageCommand extends Command
             $this->packagePath('src/ServiceProvider.stub'),
             $this->packagePath( 'src/' . $this->pascleName() . 'ServiceProvider.php' )
         );
+
+        // rename .gitignore.stub to .gitignore
+        (new Filesystem)->move(
+            $this->packagePath('.gitignore.stub'),
+            $this->packagePath('.gitignore')
+        );
     }
 
     /**
