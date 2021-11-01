@@ -128,4 +128,40 @@ class SpanTest extends OrchestraTestCase
         $this->get('/prefix');
         $this->assertFalse($this->app->providerIsLoaded(PrefixAdminServiceProvider::class));
     }
+
+    public function test_it_can_register_current_provider_on_livewire_request()
+    {
+        $this->withHeaders([
+            'X-Livewire' => true,
+        ])->post('/livewire', ['fingerprint' => ['method' => 'GET', 'path' => 'admin']]);
+
+        $this->assertTrue($this->app->providerIsLoaded(AdminServiceProvider::class));
+    }
+
+    public function test_it_can_register_current_provider_with_key_other_uri_on_livewire_request()
+    {
+        $this->withHeaders([
+            'X-Livewire' => true,
+        ])->post('/livewire', ['fingerprint' => ['method' => 'GET', 'path' => 'admin/foo/bar']]);
+
+        $this->assertTrue($this->app->providerIsLoaded(AdminServiceProvider::class));
+    }
+
+    public function test_it_can_register_current_provider_without_any_key_on_livewire_request()
+    {
+        $this->withHeaders([
+            'X-Livewire' => true,
+        ])->post('/livewire', ['fingerprint' => ['method' => 'GET', 'path' => '/']]);
+
+        $this->assertTrue($this->app->providerIsLoaded(SiteServiceProvider::class));
+    }
+
+    public function test_it_can_register_current_provider_with_prefix_on_livewire_request()
+    {
+        $this->withHeaders([
+            'X-Livewire' => true,
+        ])->post('/livewire', ['fingerprint' => ['method' => 'GET', 'path' => 'prefix/blog/foo/bar']]);
+
+        $this->assertTrue($this->app->providerIsLoaded(AdminBlogServiceProvider::class));
+    }
 }

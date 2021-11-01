@@ -7,6 +7,20 @@ use Laranext\Span\Span;
 class ServePackage
 {
     /**
+     * The request segment 1.
+     *
+     * @var string
+     */
+    protected $segmentOne;
+
+    /**
+     * The request segment 2.
+     *
+     * @var string
+     */
+    protected $segmentTwo;
+
+    /**
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -15,11 +29,35 @@ class ServePackage
      */
     public function handle($request, $next)
     {
+        $this->setSegments($request);
+
         if ($provider = $this->isSpanRequest($request)) {
             app()->register($provider);
         }
 
         return $next($request);
+    }
+
+    /**
+     * Set segments for livewire and default request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function setSegments($request)
+    {
+        // i have to refactor this whole block.
+        // waiting for better idea.
+
+        if ($request->hasHeader('X-Livewire')) {
+            $path = explode('/', $request->fingerprint['path']);
+            $this->segmentOne = $path[0] ?? null;
+            $this->segmentTwo = $path[1] ?? null;
+            return;
+        }
+
+        $this->segmentOne = $request->segment(1);
+        $this->segmentTwo = $request->segment(2);
     }
 
     /**
@@ -33,12 +71,12 @@ class ServePackage
         // i have to refactor this whole block.
         // waiting for better idea.
 
-        if (in_array($request->segment(1), config('span.excluded_routes'))) {
+        if (in_array($this->segmentOne, config('span.excluded_routes'))) {
             return false;
         }
 
-        $hasPrefix = $request->segment(1) == config('span.prefix');
-        $key = $hasPrefix ? $request->segment(2) : $request->segment(1);
+        $hasPrefix = $this->segmentOne == config('span.prefix');
+        $key = $hasPrefix ? $this->segmentTwo : $this->segmentOne;
         $providers = $hasPrefix
             ? config('span.prefix_providers')
             : config('span.providers');
