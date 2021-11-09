@@ -29,7 +29,7 @@ class SpanCoreServiceProvider extends ServiceProvider
             $this->mergeConfigFrom(__DIR__.'/../config/span.php', 'span');
         }
 
-        if ($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole() && ! $this->app->runningUnitTests()) {
             Span::registerAllProviders();
         }
 
