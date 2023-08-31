@@ -9,7 +9,7 @@ class Span
      */
     public static function version()
     {
-        return '0.1.0';
+        return '0.1.7';
     }
 
     /**
