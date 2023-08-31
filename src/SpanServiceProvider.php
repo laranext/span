@@ -15,7 +15,7 @@ class SpanServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Console\InstallCommand::class,
-                Console\ControllerCommand::class,
+                Console\ControllerNewCommand::class,
                 Console\MigrationCommand::class,
                 Console\ModelCommand::class,
                 Console\PackageCommand::class,
