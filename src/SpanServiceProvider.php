@@ -14,14 +14,16 @@ class SpanServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->commands([
-            Console\InstallCommand::class,
-            Console\ControllerCommand::class,
-            Console\MigrationCommand::class,
-            Console\ModelCommand::class,
-            Console\PackageCommand::class,
-            // Console\SeedCommand::class,
-        ]);
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\InstallCommand::class,
+                Console\ControllerCommand::class,
+                Console\MigrationCommand::class,
+                Console\ModelCommand::class,
+                Console\PackageCommand::class,
+                // Console\SeedCommand::class,
+            ]);
+        }
     }
 
     /**
