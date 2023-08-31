@@ -9,10 +9,8 @@ class SpanServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -28,14 +26,12 @@ class SpanServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any package services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app->when(MigrationCreator::class)
             ->needs('$customStubPath')
-            ->give(function ($app) {});
+            ->give(function () {});
 
         $this->publishes([
             __DIR__.'/../config/span.php' => config_path('span.php'),
