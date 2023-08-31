@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 #[AsCommand(name: 'span:controller')]
-class ControllerNewMyCommand extends ControllerMakeCommand
+class ControllerNewCommand extends ControllerMakeCommand
 {
     /**
      * The console command name.

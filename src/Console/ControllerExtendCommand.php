@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use function Laravel\Prompts\confirm;
 
 #[AsCommand(name: 'span:controller')]
-class ControllerNewCommand extends ControllerMakeCommand
+class ControllerExtendCommand extends ControllerMakeCommand
 {
     /**
      * The console command name.
