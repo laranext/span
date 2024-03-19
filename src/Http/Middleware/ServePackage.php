@@ -49,12 +49,12 @@ class ServePackage
         // i have to refactor this whole block.
         // waiting for better idea.
 
-        if ($request->hasHeader('X-Livewire')) {
-            $path = explode('/', $request->fingerprint['path']);
-            $this->segmentOne = $path[0] ?? null;
-            $this->segmentTwo = $path[1] ?? null;
-            return;
-        }
+        // if ($request->hasHeader('X-Livewire')) {
+            // $path = explode('/', $request->fingerprint['path']);
+            // $this->segmentOne = $path[0] ?? null;
+            // $this->segmentTwo = $path[1] ?? null;
+            // return;
+        // }
 
         $this->segmentOne = $request->segment(1);
         $this->segmentTwo = $request->segment(2);
